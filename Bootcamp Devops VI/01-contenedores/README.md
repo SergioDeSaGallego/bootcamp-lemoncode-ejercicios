@@ -1,16 +1,14 @@
 # Ejercicios
 
 
-
-## Reto 1. Crear una red Docker para la comunicación
-### > Comandos utilizados para crear la red Docker
+## Reto 1
+### 1. Crear una red Docker para la comunicación
 ```bash
 docker network create challenge-net
 ```
 
 
-## Reto 2. Ejecutar MongoDB en un contenedor con persistencia de datos
-### > Comando para ejecutar el contenedor de MongoDB
+### 2. Ejecutar MongoDB en un contenedor con persistencia de datos
 ```bash
 docker volume create mongo-data
 docker volume create mongo-conf
@@ -24,13 +22,11 @@ docker run -d \
     -p 27017:27017 \
     mongo:8.2.1
 ```
-## Reto 3. Ejecutar el backend localmente conectándose a tu nuevo MongoDB
-### > Configuración de conexión del backend a MongoDB
+### 3. Ejecutar el backend localmente conectándose a tu nuevo MongoDB
 ```bash
 
 ```
-## Reto 4. Verificar que el CRUD funciona correctamente usando la extensión REST Client y el archivo backend/client.http del stack que hayas elegido
-### > Prueba REST Client mostrando peticiones exitosas (backend/client.http)
+### 4. Verificar que el CRUD funciona correctamente usando la extensión REST Client y el archivo backend/client.http del stack que hayas elegido
 ```bash
 
 ```
