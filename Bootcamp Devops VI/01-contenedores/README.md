@@ -53,7 +53,7 @@ curl -X POST -H "Content-Type: application/json" -d "$POST" $host/api/classes
 
 ![Imagen de respuesta con curl, reto1](imagenes/api_call_con_curl_reto1.jpg)
 
-##### En [reto_1_comandos_bash.sh](./reto1_comandos_bash.sh) están todas las API call que no sidsteis con [client.http](./node-stack/backend/client.http), las usé todas de golpe para probar la API y generar la semilla. No hace falta para el ejercicio esa parte, pero las dejé ahí. Dejo imagen de prueba también.
+##### En [reto_1_comandos_bash.sh](./reto1_comandos_bash.sh) están todas las API call que nos disteis con [client.http](./node-stack/backend/client.http), las usé todas de golpe para probar la API y generar la semilla. No hace falta para el ejercicio esa parte, pero las dejé ahí. Dejo imagen de prueba también.
 
 ![Imagen de respuesta con curl automatizado, reto1](imagenes/todas_las_api_call_con_curl_reto1.jpg)
 
