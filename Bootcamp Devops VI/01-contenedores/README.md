@@ -60,3 +60,8 @@ curl -X POST -H "Content-Type: application/json" -d "$POST" $host/api/classes
 #### con la extensión REST Client de VS Code
 
 ![Imagen con REST Client de VS Code](imagenes/api_call_con_REST_Client.jpg)
+
+
+
+## Reto 2
+
