@@ -162,7 +162,7 @@ Content-Type: application/json
 
 
 ### Get classes by from the previous posts
-@classId={{ class.response.body._id }}
+@classId=6937c5e32e794aa8a7785ab8
 
 ### Get a class by ID (replace {id} with actual ID)
 GET {{host}}/api/classes/{{classId}}

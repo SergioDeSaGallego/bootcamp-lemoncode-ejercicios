@@ -1,7 +1,7 @@
 # Ejercicios
 
 
-## Reto 1
+## Reto 1 MongoDB en Contenedor
 
 ### 1. Crear una red Docker para la comunicación
 #### Crear la red modo bridge
@@ -63,5 +63,69 @@ curl -X POST -H "Content-Type: application/json" -d "$POST" $host/api/classes
 
 
 
-## Reto 2
+## Reto 2 Dockerizar el Backend
 
+### 1. Crear un Dockerfile para el backend
+#### Archivo dockerfile
+
+```Dockerfile
+# syntax=docker/dockerfile:1
+
+ARG NODE_VERSION=22.21.1
+
+FROM node:22-alpine3.21
+
+ENV NODE_ENV=production
+
+LABEL maintainer="sdesagallego@gmail.com"
+LABEL project="lemoncode-challenge-containers"
+
+WORKDIR /usr/src/nodeapp
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
+
+COPY . .
+RUN chown -R node /usr/src/nodeapp
+
+USER node
+
+EXPOSE 5000
+
+CMD [ "npm", "start"]
+```
+> Nota: El archivo de .env se cambió a lo siguiente:
+
+```bash
+DATABASE_URL=mongodb://localhost:27017
+DATABASE_NAME=LemoncodeCourseDb
+HOST=localhost
+PORT=5000
+```
+
+
+### 2. Construir la imagen del backend
+#### Comando para construir la imagen
+
+```bash
+docker build . -f Dockerfile -t node-app-backend:v1.2
+```
+
+### 3. Ejecutar el backend en un contenedor en la red Docker que creaste en el Reto 1
+#### Comando para ejecutar el contenedor del backend
+```bash
+docker run -d \
+    --name $container_backend \
+    --mount type=bind,source=./backend-build/.env,target=/usr/src/nodeapp/.env \
+    --memory="4g" --cpus="4" \
+    --network challenge-net \
+    -p 5000:5000 \
+    node-app-backend:v1.2
+```
+
+### 4. Verificar que se conecta a MongoDB
+#### Capturas de la conexión exitosa y del CRUD testing
+
+![Imagen API call backend dockerizada](imagenes/acpi_call_backend_dockerizado_reto2.png)

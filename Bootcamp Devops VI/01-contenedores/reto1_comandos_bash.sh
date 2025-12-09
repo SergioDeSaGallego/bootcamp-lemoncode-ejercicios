@@ -45,7 +45,7 @@ fi
 
 # ✅ Ejecutar el backend localmente conectándose a tu nuevo MongoDB
 
-cd ./node-stack/backend/
+cd ./node-stack-local/backend/
 npm install >/dev/null
 npm start &
 cd ../../
