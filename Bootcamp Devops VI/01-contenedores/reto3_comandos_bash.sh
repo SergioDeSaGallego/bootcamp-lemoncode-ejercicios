@@ -6,6 +6,8 @@ mongov_data=mongo-data
 mongov_cnf=mongo-conf
 backend_image=node-app-backend:v1.2
 backend_container="node-challenge-backend"
+frontend_image=node-app-frontend:v1
+frontend_container="node-challenge-frontend"
 
 
 # Repetir la estructura del reto 1
@@ -41,13 +43,10 @@ else
     echo "usando container existente"
     docker start $mongo_container
 fi
-################################################################
 
-
-# docker build de lo que se encuentra en ./docker-image-build/backend-build/Dockerfile
+# docker build del backend en ./docker-image-build/backend-build/Dockerfile
 
 cd ./docker-image-build/backend-build
-
 if ! docker images --format "{{.Repository}}:{{.Tag}}" | grep $backend_image ; then
 
     docker build . -f Dockerfile -t $backend_image
@@ -56,7 +55,7 @@ else
 fi
 
 
-# ejecutar la imagen en la red del reto 1
+# ejecutar la imagen de backend en la red del reto 1
 
 if ! docker ps -a --format '{{.Names}}' | grep -wq $backend_container ; then
     docker run -d \
@@ -64,28 +63,43 @@ if ! docker ps -a --format '{{.Names}}' | grep -wq $backend_container ; then
     --mount type=bind,source=.env,target=/usr/src/nodeapp/.env \
     --memory="4g" --cpus="4" \
     --network $net_name \
-    -p 5000:5000 \
     $backend_image
+    # -p 5000:5000 \
 else
 
     echo "usando container existente"
     docker start $backend_container
 fi
+cd ../..
+################################################################
 
 
-# verificando que se da la conexión a MongoDB y haceindo el CRUD testing
+# docker build del frontend que se encuentra en ./docker-image-build/frontend-build/Dockerfile
 
-sleep 3
-host="http://localhost:5000"
+cd ./docker-image-build/frontend-build
+if ! docker images --format "{{.Repository}}:{{.Tag}}" | grep $frontend_image ; then
 
-if curl --fail $host/api/classes 2>/dev/null; then
-    printf "\n***Get exitoso***\n"
+    docker build . -f Dockerfile -t $frontend_image
+
 else
-    printf "\n***Fallo en el get***\n"
+    echo imagen ya existente
 fi
 
 
-docker stop $mongo_container
-docker rm $mongo_container
-docker stop $backend_container
-docker rm $backend_container
+# ejecutar la imagen de frontend en la red del reto 1
+
+if ! docker ps -a --format '{{.Names}}' | grep -wq $frontend_container ; then
+    docker run -d \
+    --name $frontend_container \
+    --mount type=bind,source=.env,target=/usr/src/nodeapp/.env \
+    --memory="4g" --cpus="4" \
+    --network $net_name \
+    -p 3000:3000 \
+    $frontend_image
+
+else
+
+    echo "usando container existente"
+    docker start $frontend_container
+fi
+cd ../..

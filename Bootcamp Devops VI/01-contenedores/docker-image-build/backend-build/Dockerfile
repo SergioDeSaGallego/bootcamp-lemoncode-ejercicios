@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=22.21.1
-
 FROM node:22-alpine3.21
 
 ENV NODE_ENV=production

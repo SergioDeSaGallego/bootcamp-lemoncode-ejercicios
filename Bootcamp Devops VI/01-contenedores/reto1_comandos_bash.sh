@@ -3,7 +3,7 @@
 # ✅ Crear una red Docker para la comunicación
 
 net_name=challenge-net
-container_name=mongo-challenge
+mongo_container=mongo-challenge
 mongov_data=mongo-data
 mongov_cnf=mongo-conf
 
@@ -27,9 +27,9 @@ else
     echo "usando volumen existente"
 fi
 
-if ! docker ps -a --format '{{.Names}}' | grep -wq $container_name ; then
+if ! docker ps -a --format '{{.Names}}' | grep -wq $mongo_container ; then
     docker run -d \
-    --name $container_name \
+    --name $mongo_container \
     --mount type=volume,source=$mongov_data,target=/data/db \
     --mount type=volume,source=$mongov_cnf,target=/data/configdb \
     --memory="4g" --cpus="4" \
@@ -40,12 +40,12 @@ if ! docker ps -a --format '{{.Names}}' | grep -wq $container_name ; then
 else
 
     echo "usando container existente"
-    docker start $container_name
+    docker start $mongo_container
 fi
 
 # ✅ Ejecutar el backend localmente conectándose a tu nuevo MongoDB
 
-cd ./node-stack-local/backend/
+cd ./node-stack-local-testing/backend/
 npm install >/dev/null
 npm start &
 cd ../../
@@ -99,6 +99,6 @@ if curl $host/api/classes 2>/dev/null; then
 fi 
 
 pkill -f "node app.js"
-# kill $(ps aux | grep -v grep | grep "node app.js" | tr -s ' ' | cut -d ' ' -f 2)
 
-docker stop $container_name
+docker stop $mongo_container
+docker rm $mongo_container
