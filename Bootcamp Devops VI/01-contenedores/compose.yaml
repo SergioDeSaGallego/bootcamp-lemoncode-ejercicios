@@ -1,0 +1,61 @@
+services:
+  mongo-challenge:
+    container_name: mongo-challenge
+    image: mongo:8.2.1
+    volumes:
+      - mongo-data:/data/db
+      - mongo-conf:/data/configdb
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+    networks:
+      - challenge-net
+
+  node-challenge-backend:
+    depends_on:
+      - mongo-challenge
+    container_name: node-challenge-backend
+    image: node-app-backend:v1.2
+    environment:
+      DATABASE_URL: mongodb://mongo-challenge:27017
+      DATABASE_NAME: LemoncodeCourseDb
+      HOST: 0.0.0.0
+      PORT: 5000
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    networks:
+      - challenge-net
+
+
+
+  node-challenge-frontend:
+    depends_on:
+      - node-challenge-backend
+    container_name: node-challenge-frontend
+    image: node-app-frontend:v1
+    environment:
+      API_URL: "http://node-challenge-backend:5000/api/classes"
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    networks:
+      - challenge-net
+
+
+volumes:
+  mongo-data:
+    name: mongo-data
+  mongo-conf:
+    name: mongo-conf
+networks:
+  challenge-net:

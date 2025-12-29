@@ -61,7 +61,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -wq $backend_container ; then
     docker run -d \
     --name $backend_container \
     --mount type=bind,source=.env,target=/usr/src/nodeapp/.env \
-    --memory="4g" --cpus="4" \
+    --memory="4g" --cpus="2" \
     --network $net_name \
     $backend_image
     # -p 5000:5000 \
@@ -92,7 +92,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -wq $frontend_container ; then
     docker run -d \
     --name $frontend_container \
     --mount type=bind,source=.env,target=/usr/src/nodeapp/.env \
-    --memory="4g" --cpus="4" \
+    --memory="4g" --cpus="2" \
     --network $net_name \
     -p 3000:3000 \
     $frontend_image
