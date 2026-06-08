@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+  labels:
+    app: todo-app
+    ejercicio: 00monolith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-app
+      ejercicio: 00monolith
+  template:
+    metadata:
+      labels:
+        app: todo-app
+        ejercicio: 00monolith
+    spec:
+      containers:
+      - name: todo-app
+        image: sdesa/lc-todo-00monolith
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "256Mi"
+            cpu: "0.5"
+        ports:
+        - containerPort: 8081
+        env:
+          - name: NODE_ENV
+            value: prod
+          - name: PORT
+            value: "3000"
+
+
