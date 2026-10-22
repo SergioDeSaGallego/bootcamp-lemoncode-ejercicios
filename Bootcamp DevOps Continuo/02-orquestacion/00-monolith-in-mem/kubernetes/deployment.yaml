@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app00
+  labels:
+    app: tpdp_app
+    ejercicio: 00_monolith
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-app
+      ejercicio: 00_monolith
+  template:
+    metadata:
+      labels:
+        app: todo-app
+        ejercicio: 00_monolith
+    spec:
+      containers:
+      - name: todo-app00
+        image: sdesa/lc-todo-00monolith:latest
+        #evita que kubernetes descarge imagenes del registro, necesario para iusarlo en local
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "128Mi"
+            cpu: "0.5"
+        ports:
+        - containerPort: 8081
+        env:
+          - name: NODE_ENV
+            value: prod
+          - name: PORT
+            value: "3000"
