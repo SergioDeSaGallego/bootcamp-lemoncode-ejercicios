@@ -86,3 +86,38 @@ kubectl expose deployment todo-app00 --type=LoadBalancer --port=3000 --target-po
 ![lanzandoservicio](/Bootcamp%20DevOps%20Continuo/02-orquestacion/00-monolith-in-mem/imagenes/lanzandoservicio.png)
 ![serviciofuncional](/Bootcamp%20DevOps%20Continuo/02-orquestacion/00-monolith-in-mem/imagenes/serviciofuncional.png)
 
+## Ejercicio 2. Monolito
+
+### Paso 0. Probando la app con base de datos
+
+```bash
+# Creamos la base de datos para usarla localmente
+docker run --rm -d -p 5432:5432 postgres postgres:16
+```
+
+![fallodb](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/fallodb.png)
+> Falla, si no tiene POSTGRES_PASSWORD en algun valor da fallo
+
+
+```bash
+docker run -e POSTGRES_PASSWORD="postgres" --rm  -p 5432:5432 --name postgres postgres:latest
+```
+
+> Con el comando siguiente, le pegaríamos todo el código de la base de datos, pero este método no lo copia bien, por lo que decidía
+```bash
+docker exec -it postgres psql -U postgres
+```
+![fallaalcopiar](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/falloalcopiar.png)
+
+>Por ello decidí alimentar al comando el archivo directamente
+```bash
+docker exec -i postgres psql -U postgres < todo-app/todos_db.sql
+```
+
+![basededatos](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/populatedb.png)
+
+
+>Creamos el archivo de variables de entorno [.env](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/todo-app/.env)
+
+>Funciona
+![funcional](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/funcionalfas0.png)
