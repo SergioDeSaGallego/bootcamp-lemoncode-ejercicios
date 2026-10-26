@@ -120,4 +120,7 @@ docker exec -i postgres psql -U postgres < todo-app/todos_db.sql
 >Creamos el archivo de variables de entorno [.env](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/todo-app/.env)
 
 >Funciona
+
 ![funcional](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/funcionalfas0.png)
+
+### Paso 1. Probando la app con base de datos
