@@ -92,7 +92,7 @@ kubectl expose deployment todo-app00 --type=LoadBalancer --port=3000 --target-po
 
 ```bash
 # Creamos la base de datos para usarla localmente
-docker run --rm -d -p 5432:5432 postgres postgres:16
+docker run --rm -d -p 5432:5432 -- name postgres postgres:16
 ```
 
 ![fallodb](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/fallodb.png)
