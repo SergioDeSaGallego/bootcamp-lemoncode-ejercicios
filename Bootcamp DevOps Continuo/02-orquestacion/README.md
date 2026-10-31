@@ -92,7 +92,7 @@ kubectl expose deployment todo-app00 --type=LoadBalancer --port=3000 --target-po
 
 ```bash
 # Creamos la base de datos para usarla localmente
-docker run --rm -d -p 5432:5432 -- name postgres postgres:16
+docker run --rm -d -p 5432:5432 --name postgres postgres:16
 ```
 
 ![fallodb](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/fallodb.png)
@@ -100,7 +100,7 @@ docker run --rm -d -p 5432:5432 -- name postgres postgres:16
 
 
 ```bash
-docker run -e POSTGRES_PASSWORD="postgres" --rm  -p 5432:5432 --name postgres postgres:latest
+docker run -d -e POSTGRES_PASSWORD="postgres" --rm  -p 5432:5432 --name postgres postgres:16
 ```
 
 > Con el comando siguiente, le pegaríamos todo el código de la base de datos, pero este método no lo copia bien, por lo que decidía

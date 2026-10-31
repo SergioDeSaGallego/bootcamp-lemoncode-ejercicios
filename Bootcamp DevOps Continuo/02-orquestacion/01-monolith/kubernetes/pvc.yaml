@@ -1,11 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mypvc
+  name: todosdb-pv-claim
 spec:
+  storageClassName: sclass-todos
   resources:
     requests:
-      storage: <Size>
+      storage: "1Gi"
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  

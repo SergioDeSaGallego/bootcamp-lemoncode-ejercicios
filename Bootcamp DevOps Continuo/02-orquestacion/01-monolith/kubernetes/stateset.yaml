@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mystatefulset
+  name: todos-postgres
 spec:
   selector:
     matchLabels:
@@ -16,9 +16,17 @@ spec:
       containers:
       - name: todos-postgres
         image: postgres:16
+        volumeMounts:
+        - name: todosdb-pv
+          mountPath: /var/lib/postgresql/data
         ports:
         - containerPort: 5432
           name: db
         envFrom:
         - configMapRef:
             name: postgres-config
+      volumes:
+        - name: todosdb-pv
+          persistentVolumeClaim:
+            claimName: todosdb-pv-claim
+
