@@ -29,4 +29,6 @@ spec:
         - name: todosdb-pv
           persistentVolumeClaim:
             claimName: todosdb-pv-claim
-
+        - name: db-seed
+          configMap:
+              name: cm-db

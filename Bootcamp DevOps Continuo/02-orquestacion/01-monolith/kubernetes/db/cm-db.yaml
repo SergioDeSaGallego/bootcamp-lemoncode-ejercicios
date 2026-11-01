@@ -1,0 +1,71 @@
+apiVersion: v1
+data:
+  todos_db.sql: "--\n-- PostgreSQL database dump\n--\n\n-- Dumped from database version
+    10.4 (Debian 10.4-2.pgdg90+1)\n-- Dumped by pg_dump version 10.4 (Debian 10.4-2.pgdg90+1)\n\nSET
+    statement_timeout = 0;\nSET lock_timeout = 0;\nSET idle_in_transaction_session_timeout
+    = 0;\nSET client_encoding = 'UTF8';\nSET standard_conforming_strings = on;\nSELECT
+    pg_catalog.set_config('search_path', '', false);\nSET check_function_bodies =
+    false;\nSET client_min_messages = warning;\nSET row_security = off;\n\n--\n--
+    Name: plpgsql; Type: EXTENSION; Schema: -; Owner: \n--\n\nCREATE EXTENSION IF
+    NOT EXISTS plpgsql WITH SCHEMA pg_catalog;\n\n\n--\n-- Name: EXTENSION plpgsql;
+    Type: COMMENT; Schema: -; Owner: \n--\n\nCOMMENT ON EXTENSION plpgsql IS 'PL/pgSQL
+    procedural language';\n\n\nSET default_tablespace = '';\n\nSET default_with_oids
+    = false;\n\n--\n-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres\n--\n\nCREATE
+    DATABASE todos_db;\n\n\\c todos_db\n\nCREATE TABLE public.migrations (\n    id
+    integer NOT NULL,\n    name character varying(255),\n    batch integer,\n    migration_time
+    timestamp with time zone\n);\n\n\nALTER TABLE public.migrations OWNER TO postgres;\n\n--\n--
+    Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres\n--\n\nCREATE
+    SEQUENCE public.migrations_id_seq\n    AS integer\n    START WITH 1\n    INCREMENT
+    BY 1\n    NO MINVALUE\n    NO MAXVALUE\n    CACHE 1;\n\n\nALTER TABLE public.migrations_id_seq
+    OWNER TO postgres;\n\n--\n-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: postgres\n--\n\nALTER SEQUENCE public.migrations_id_seq
+    OWNED BY public.migrations.id;\n\n\n--\n-- Name: migrations_lock; Type: TABLE;
+    Schema: public; Owner: postgres\n--\n\nCREATE TABLE public.migrations_lock (\n
+    \   index integer NOT NULL,\n    is_locked integer\n);\n\n\nALTER TABLE public.migrations_lock
+    OWNER TO postgres;\n\n--\n-- Name: migrations_lock_index_seq; Type: SEQUENCE;
+    Schema: public; Owner: postgres\n--\n\nCREATE SEQUENCE public.migrations_lock_index_seq\n
+    \   AS integer\n    START WITH 1\n    INCREMENT BY 1\n    NO MINVALUE\n    NO
+    MAXVALUE\n    CACHE 1;\n\n\nALTER TABLE public.migrations_lock_index_seq OWNER
+    TO postgres;\n\n--\n-- Name: migrations_lock_index_seq; Type: SEQUENCE OWNED BY;
+    Schema: public; Owner: postgres\n--\n\nALTER SEQUENCE public.migrations_lock_index_seq
+    OWNED BY public.migrations_lock.index;\n\n\n--\n-- Name: todos; Type: TABLE; Schema:
+    public; Owner: postgres\n--\n\nCREATE TABLE public.todos (\n    id integer NOT
+    NULL,\n    title character varying(255) NOT NULL,\n    completed boolean NOT NULL,\n
+    \   due_date timestamp with time zone,\n    \"order\" integer\n);\n\n\nALTER TABLE
+    public.todos OWNER TO postgres;\n\n--\n-- Name: todos_id_seq; Type: SEQUENCE;
+    Schema: public; Owner: postgres\n--\n\nCREATE SEQUENCE public.todos_id_seq\n    AS
+    integer\n    START WITH 1\n    INCREMENT BY 1\n    NO MINVALUE\n    NO MAXVALUE\n
+    \   CACHE 1;\n\n\nALTER TABLE public.todos_id_seq OWNER TO postgres;\n\n--\n--
+    Name: todos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres\n--\n\nALTER
+    SEQUENCE public.todos_id_seq OWNED BY public.todos.id;\n\n\n--\n-- Name: migrations
+    id; Type: DEFAULT; Schema: public; Owner: postgres\n--\n\nALTER TABLE ONLY public.migrations
+    ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);\n\n\n--\n--
+    Name: migrations_lock index; Type: DEFAULT; Schema: public; Owner: postgres\n--\n\nALTER
+    TABLE ONLY public.migrations_lock ALTER COLUMN index SET DEFAULT nextval('public.migrations_lock_index_seq'::regclass);\n\n\n--\n--
+    Name: todos id; Type: DEFAULT; Schema: public; Owner: postgres\n--\n\nALTER TABLE
+    ONLY public.todos ALTER COLUMN id SET DEFAULT nextval('public.todos_id_seq'::regclass);\n\n\n--\n--
+    Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres\n--\n\nCOPY
+    public.migrations (id, name, batch, migration_time) FROM stdin;\n1\t20201122205735_create_todos_table.js\t1\t2020-12-04
+    09:26:30.428+00\n2\t20201123104711_update_todos_table.js\t1\t2020-12-04 09:26:30.433+00\n\\.\n\n\n--\n--
+    Data for Name: migrations_lock; Type: TABLE DATA; Schema: public; Owner: postgres\n--\n\nCOPY
+    public.migrations_lock (index, is_locked) FROM stdin;\n1\t0\n\\.\n\n\n--\n-- Data
+    for Name: todos; Type: TABLE DATA; Schema: public; Owner: postgres\n--\n\nCOPY
+    public.todos (id, title, completed, due_date, \"order\") FROM stdin;\n12\tLearn
+    Jenkins\tf\t2020-12-04 18:37:44.234+00\t\\N\n13\tLearn GitLab\tt\t2020-12-04 18:38:06.993+00\t\\N\n21\tLearn
+    K8s\tf\t2020-12-04 19:12:16.174+00\t\\N\n\\.\n\n\n--\n-- Name: migrations_id_seq;
+    Type: SEQUENCE SET; Schema: public; Owner: postgres\n--\n\nSELECT pg_catalog.setval('public.migrations_id_seq',
+    2, true);\n\n\n--\n-- Name: migrations_lock_index_seq; Type: SEQUENCE SET; Schema:
+    public; Owner: postgres\n--\n\nSELECT pg_catalog.setval('public.migrations_lock_index_seq',
+    1, true);\n\n\n--\n-- Name: todos_id_seq; Type: SEQUENCE SET; Schema: public;
+    Owner: postgres\n--\n\nSELECT pg_catalog.setval('public.todos_id_seq', 21, true);\n\n\n--\n--
+    Name: migrations_lock migrations_lock_pkey; Type: CONSTRAINT; Schema: public;
+    Owner: postgres\n--\n\nALTER TABLE ONLY public.migrations_lock\n    ADD CONSTRAINT
+    migrations_lock_pkey PRIMARY KEY (index);\n\n\n--\n-- Name: migrations migrations_pkey;
+    Type: CONSTRAINT; Schema: public; Owner: postgres\n--\n\nALTER TABLE ONLY public.migrations\n
+    \   ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);\n\n\n--\n-- Name: todos todos_pkey;
+    Type: CONSTRAINT; Schema: public; Owner: postgres\n--\n\nALTER TABLE ONLY public.todos\n
+    \   ADD CONSTRAINT todos_pkey PRIMARY KEY (id);\n\n\n--\n-- PostgreSQL database
+    dump complete\n--\n\n"
+kind: ConfigMap
+metadata:
+  name: cm-db
