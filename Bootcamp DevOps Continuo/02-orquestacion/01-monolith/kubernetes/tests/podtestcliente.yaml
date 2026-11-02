@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podtestcliente
+  labels:
+    app.kubernetes.io/name: podtestcliente
+spec:
+  containers:
+  - name: podtestcliente
+    image: postgres:16
+    ports:
+      - containerPort: 5432
+    volumeMounts:
+    - name: vol
+      mountPath: /docker-entrypoint-initdb.d/
+    env:
+      - name: POSTGRES_PASSWORD
+        value: "password"
+  volumes: 
+  - name: vol
+    configMap:
+      name: cm-db

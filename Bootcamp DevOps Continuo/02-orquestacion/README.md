@@ -129,7 +129,9 @@ docker exec -i postgres psql -U postgres < todo-app/todos_db.sql
 > Nota: Antes de empezar, decidí seguir el consejo en el comentario al final del ejercicio y crear la imagen con la seed alimentada de otra forma, en lugar de usar una imagen "cocinada", optaré por montar la imagen en un volumen con un configMap, que me pareció lo más sencillo
 
 
-Lanzamos el siguiente comando para que se genere el [configmap](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/cm-db.yaml) ya preparado
+Lanzamos el siguiente comando para que se genere el configMap en formato yaml
 ```bash
 kubectl create cm cm-db --from-file=todos_db.sql=../todo-app/todos_db.sql --dry-run=client -o yaml > db/cm-db.yaml
 ```
+
+me ha generado el [archivo configmap](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/cm-db.yaml) ya preparado
