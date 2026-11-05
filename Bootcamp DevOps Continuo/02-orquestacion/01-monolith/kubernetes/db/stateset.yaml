@@ -33,11 +33,10 @@ spec:
             secretKeyRef:
               name: pg-password
               key: POSTGRES_PASSWORD
-            
       volumes:
         - name: todosdb-pv
           persistentVolumeClaim:
             claimName: todosdb-pv-claim
         - name: db-seed
           configMap:
-              name: cm-db
+            name: cm-db

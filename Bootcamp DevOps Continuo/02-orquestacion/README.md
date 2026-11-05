@@ -241,7 +241,7 @@ Primero es necesario crear en minikube el path al directorio local que se montar
 
 ```bash
 minikube ssh
-sudo mkdir -p /mnt/kubediscos/testpostgre
+sudo mkdir -p /mnt/kubediscos/postgrepvmanual
 ```
 
 Un PV con almacenamiento en "local" necesita registrar también el campo nodeAffinity, para el cual necesitamos conocer cuál es el hostname del nodo minikube
@@ -256,7 +256,7 @@ Con configurar el campo storageClassName al que usamos en este ejercicio "sclass
 
 #### 1.6 [Cluster IP Service](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/service.yaml)
 
-El ClusterIP permitirá que la app que despleguemos acceda a la base de datos sin exponerla fuera del cluster Se puede crear con una ip por defecto pero es mejor dejar que kubernetes le asigne una automáticamente y acceder mediante el nombre del ClusterIP service.
+El ClusterIP permitirá que la app que despleguemos acceda a la base de datos sin exponerla fuera del cluster. El valor del campo spec.selector debe coincidir con el statefulset. Se puede crear con una ip por defecto pero es mejor dejar que kubernetes le asigne una automáticamente y acceder mediante el nombre del ClusterIP service.
 
 #### 1.7 [StatefulSet](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/stateset.yaml)
 
@@ -266,3 +266,17 @@ Usamos el volumen PVC, referenciandolo en el campo volumes.persistentVolumeClaim
 Para la seed de la base de datos, el configMap que hemos creado en el paso 0 como un volumen, referenciándolo en VolumeMounts con el mountPath /docker-entrypoint-initdb.d/, con el que postgre inicializa la base de datos si no existe una.
 
 Al usar el PVC "todosdb-pv-claim", funcionará tanto si el PV se crea de manera manual o automática.
+
+
+El PV se creó manualmente y está correctamente unido al PVC, mientras que la base de datos inicializada con la seed que nos proporciona el ejercicio es totalmente accesible desde dentro del cluster accedemos desde otro pod para comprobarlo.
+
+![pvmanual](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/pvmanualconpvc.png)
+
+![pvmanualDDBB](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/DDBBfuncionaPVmanual.png)
+
+
+En el siguiente se puede vver que el PV cambió y ahora se usa uno generado dinámicamente
+
+![pvdinamico](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/pvmanualconpvc.png)
+
+![pvdinamicoDDBB](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/DDBBfuncionapvdinamico.png)

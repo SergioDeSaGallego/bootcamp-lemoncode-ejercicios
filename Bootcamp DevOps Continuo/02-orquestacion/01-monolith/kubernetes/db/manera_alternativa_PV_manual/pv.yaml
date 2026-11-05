@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: sclass-todos
   local:
-    path: /mnt/kubediscos/testpostgre
+    path: /mnt/kubediscos/postgrepvmanual
   nodeAffinity:
     required:
       nodeSelectorTerms:
