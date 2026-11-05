@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: podtestcliente
+  name: podtest
   labels:
-    app.kubernetes.io/name: podtestcliente
+    app.kubernetes.io/name: podtest
 spec:
   containers:
-  - name: podtestcliente
+  - name: podtest
     image: postgres:16
     ports:
       - containerPort: 5432

@@ -6,4 +6,5 @@ metadata:
     storageclass.kubernetes.io/is-default-class: "false"
 provisioner: k8s.io/minikube-hostpath
 reclaimPolicy: Delete
-allowVolumeExpansion: true
+allowVolumeExpansion: false
+volumeBindingMode: Immediate

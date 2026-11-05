@@ -19,12 +19,21 @@ spec:
         volumeMounts:
         - name: todosdb-pv
           mountPath: /var/lib/postgresql/data
+        - name: db-seed
+          mountPath: /docker-entrypoint-initdb.d/
         ports:
         - containerPort: 5432
           name: db
         envFrom:
         - configMapRef:
             name: postgres-config
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg-password
+              key: POSTGRES_PASSWORD
+            
       volumes:
         - name: todosdb-pv
           persistentVolumeClaim:
