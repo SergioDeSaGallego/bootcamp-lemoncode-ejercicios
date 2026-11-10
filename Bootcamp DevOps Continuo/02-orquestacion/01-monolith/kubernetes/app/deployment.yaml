@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app01
+  labels:
+    app: todo_app
+    ejercicio: 01_monolith
+spec:
+  selector:
+    matchLabels:
+      app: todo-app
+      ejercicio: 01_monolith
+  template:
+    metadata:
+      labels:
+        app: todo-app
+        ejercicio: 01_monolith
+    spec:
+      containers:
+      - name: todo-app01
+        image: sdesa/lc-todo-01monolith:latest
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "128Mi"
+            cpu: "0.5"
+        envFrom:
+        - configMapRef:
+            name: todo-app-config
+          

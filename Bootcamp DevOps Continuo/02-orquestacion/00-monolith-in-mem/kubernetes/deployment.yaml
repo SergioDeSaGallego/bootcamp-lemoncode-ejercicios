@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: todo-app00
   labels:
-    app: tpdp_app
+    app: todo_app
     ejercicio: 00_monolith
 spec:
   replicas: 2

@@ -127,7 +127,7 @@ Funciona
 
 El ejercicio pide un StatefulSet para la BBDD, y para ello crear un ConfigMap, un StorageClass un PersistentVolume y un PersistentVolumeClaim que referencien al SC, un Cluster IP service para que los pods de la app puedan acceder al del StatefulSet
 
-##### Nota: En el ejercicio me decía explicitamente que cree el PV directamente, a parte del PVC, no tenía claro si eso o si se esperaba que el PVC crease el PV dee manera dinámica, que me parecía una manera mejor, como no tenía claro si realmente debía hacer el PV manualmente, decidí hacerlo de las dos maneras 1° dejar que el PVC cree el PV, y 2°, crear el PV antes, dejé [aqui](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/manera_alternativa_PV_manual/pv.yaml) un yaml para un Volumen Persistente, se creará antes de empezar y que será reclamado por el PVC del ejercicio cuando este se cree
+##### Nota: En el ejercicio me decía explicitamente que cree el PV directamente, a parte del PVC, no tenía claro si eso o si se esperaba que el PVC crease el PV dee manera dinámica, que me parecía una manera mejor, como no tenía claro si realmente debía hacer el PV manualmente, decidí hacerlo de las dos maneras 1° dejar que el PVC cree el PV, y 2°, crear el PV antes, dejé [aqui](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/PV_manual/pv.yaml) un yaml para un Volumen Persistente, se creará antes de empezar y que será reclamado por el PVC del ejercicio cuando este se cree
 
 #### 1.0 Preparando la imagen que usaremos
 > Antes de empezar, decidí seguir el consejo en el comentario al final del ejercicio y crear la imagen con la seed alimentada de otra forma, en lugar de usar una imagen "cocinada", optaré por montar la imagen en un volumen con un configMap, que me pareció lo más sencillo
@@ -232,7 +232,7 @@ La opción por defecto es "Immediate mode", mientras que "WaitForFirstConsumer" 
 No necesitamos ningún parámetro en específico, la plantilla venía con guaranteedReadWriteLatency pero no haría falta para este ejercicio.
 
 
-#### 1.4 [PersistentVolume](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/manera_alternativa_PV_manual/pv.yaml) que referencie al StorageClass anterior
+#### 1.4 [PersistentVolume](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/db/PV_manual/pv.yaml) que referencie al StorageClass anterior
 
 No estaba claro si el PV se tendría que crear automáticamente con el PVC o no, lo que hay aquí es la version con el PV manual.
 En la version con PV manual, preferí crearlo con almacenamiento local en lugar de el hostPath que el StorageClass y el PVC usarían en la versión dinámica.
@@ -280,3 +280,18 @@ En el siguiente se puede vver que el PV cambió y ahora se usa uno generado din�
 ![pvdinamico](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/pvmanualconpvc.png)
 
 ![pvdinamicoDDBB](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/DDBBfuncionapvdinamico.png)
+
+### Paso 2. Crear todo-app
+
+
+![minikubeload](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/minikubeimageload.png)
+
+> Importamos la imagena  minikube como con la anterior
+
+El deployment que se usará se puede comprobar [aquí](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/app/deployment.yaml)
+
+Para mandarle las variables de entorno, las metemos con [este ConfigMap](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/app/cm.yaml)
+
+### Paso 3. Crear un LoadBalancer Service
+
+
