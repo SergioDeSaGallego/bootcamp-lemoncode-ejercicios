@@ -1,6 +1,6 @@
-# Ejercicios
+> # Ejercicios 02-Orquestación
 
-## Ejercicio 1. Monolito en memoria
+# Ejercicio 1. Monolito en memoria
 
 ### Paso 1 Crear un deployment para TODO-app
 
@@ -86,7 +86,10 @@ kubectl expose deployment todo-app00 --type=LoadBalancer --port=3000 --target-po
 ![lanzandoservicio](/Bootcamp%20DevOps%20Continuo/02-orquestacion/00-monolith-in-mem/imagenes/lanzandoservicio.png)
 ![serviciofuncional](/Bootcamp%20DevOps%20Continuo/02-orquestacion/00-monolith-in-mem/imagenes/serviciofuncional.png)
 
-## Ejercicio 2. Monolito
+
+
+
+# Ejercicio 2. Monolito
 
 ### Paso 0. Probando la app con base de datos
 
@@ -286,12 +289,29 @@ En el siguiente se puede vver que el PV cambió y ahora se usa uno generado din�
 
 ![minikubeload](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/minikubeimageload.png)
 
-> Importamos la imagena  minikube como con la anterior
+> Importamos la imagen a minikube como con la anterior
 
 El deployment que se usará se puede comprobar [aquí](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/app/deployment.yaml)
 
-Para mandarle las variables de entorno, las metemos con [este ConfigMap](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/app/cm.yaml)
+Para mandarle las variables de entorno, las metemos con [este ConfigMap](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/app/cm.yaml).\
+Mientras que para darle la contraseña de la base de datos decidí usar el mismo secret que ya estaba usando para la base de datos.
+
 
 ### Paso 3. Crear un LoadBalancer Service
 
+Creé [un servicio de tipo LoadBalancer](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/kubernetes/lb/loadbalancer.yaml) usando para este el puerto 3001, para no usar el puerto que teníamos por defecto.
+
+Creando todos los recursos como se ve en la imagen
+![apply](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/applyytunnel.png)
+
+La app funciona
+
+![apply](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/appfuncionapaso2.png)
+
+
+# Ejercicio 3. Monolito en memoria
+
+## Paso 0 Probando las dos dos soluciones en local
+
+![applocalmanual](/Bootcamp%20DevOps%20Continuo/02-orquestacion/02-distributed/imagenes/applocalfncn.png)
 

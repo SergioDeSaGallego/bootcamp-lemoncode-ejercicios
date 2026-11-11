@@ -4,10 +4,9 @@ metadata:
   name: todo-app-config
 data:
   NODE_ENV: develop
-  PORT: "3000"
+  PORT: "3001"
   DB_HOST: postgres-ip
   DB_USER: postgres
-  DB_PASSWORD: postgres
   DB_PORT: "5432"
   DB_NAME: todos_db
   DB_VERSION: "10.4"

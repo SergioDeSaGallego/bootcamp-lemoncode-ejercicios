@@ -30,4 +30,9 @@ spec:
         envFrom:
         - configMapRef:
             name: todo-app-config
-          
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg-password
+              key: POSTGRES_PASSWORD
