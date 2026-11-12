@@ -311,7 +311,17 @@ La app funciona
 
 # Ejercicio 3. Monolito en memoria
 
-## Paso 0 Probando las dos dos soluciones en local
+## Paso 0 Probando las dos dos soluciones en sin K8s
+
+Creando las imágenes para ambas.
+
+
+
+En local:
 
 ![applocalmanual](/Bootcamp%20DevOps%20Continuo/02-orquestacion/02-distributed/imagenes/applocalfncn.png)
+
+Con Docker:
+
+![applocaldocker](/Bootcamp%20DevOps%20Continuo/02-orquestacion/02-distributed/imagenes/applocaldockerfcn.png)
 
