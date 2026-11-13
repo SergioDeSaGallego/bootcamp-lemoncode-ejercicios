@@ -2,7 +2,7 @@
 
 # Ejercicio 1. Monolito en memoria
 
-### Paso 1 Crear un deployment para TODO-app
+## Paso 1 Crear un deployment para TODO-app
 
 #### 1.0 Preparación, probaré la app en local y crearé una imagen de TODO
 
@@ -91,7 +91,7 @@ kubectl expose deployment todo-app00 --type=LoadBalancer --port=3000 --target-po
 
 # Ejercicio 2. Monolito
 
-### Paso 0. Probando la app con base de datos
+## Paso 0. Probando la app con base de datos
 
 ```bash
 # Creamos la base de datos para usarla localmente
@@ -126,7 +126,7 @@ Funciona
 
 ![funcional](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/funcionalfas0.png)
 
-### Paso 1. Crear una capa de persistencia de datos
+## Paso 1. Crear una capa de persistencia de datos
 
 El ejercicio pide un StatefulSet para la BBDD, y para ello crear un ConfigMap, un StorageClass un PersistentVolume y un PersistentVolumeClaim que referencien al SC, un Cluster IP service para que los pods de la app puedan acceder al del StatefulSet
 
@@ -284,7 +284,7 @@ En el siguiente se puede vver que el PV cambió y ahora se usa uno generado din�
 
 ![pvdinamicoDDBB](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/DDBBfuncionapvdinamico.png)
 
-### Paso 2. Crear todo-app
+## Paso 2. Crear todo-app
 
 
 ![minikubeload](/Bootcamp%20DevOps%20Continuo/02-orquestacion/01-monolith/imagenes/minikubeimageload.png)
@@ -313,9 +313,11 @@ La app funciona
 
 ## Paso 0 Probando las dos dos soluciones en sin K8s
 
-Creando las imágenes para ambas.
+Creando las imágenes para ambas pruebas.
 
+![dokcerimage](/Bootcamp%20DevOps%20Continuo/02-orquestacion/02-distributed/imagenes/dockerbuilds.png)
 
+Creédos versiones de sdesa/lc-todo-front separadas por las etiquetas local y k8s, para que el ARG API_HOST no afecte a la hora de usarlo en kubernetes.
 
 En local:
 
@@ -324,4 +326,8 @@ En local:
 Con Docker:
 
 ![applocaldocker](/Bootcamp%20DevOps%20Continuo/02-orquestacion/02-distributed/imagenes/applocaldockerfcn.png)
+
+
+
+## Paso 1
 

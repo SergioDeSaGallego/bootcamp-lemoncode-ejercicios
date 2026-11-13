@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-front
+  labels:
+    app: todo_app
+    component: frontend
+spec:
+  selector:
+    matchLabels:
+      app: todo-front
+  template:
+    metadata:
+      labels:
+        app: todo-front
+    spec:
+      containers:
+      - name: todo-front
+        image: sdesa/lc-todo-front:k8s
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "128Mi"
+            cpu: "0.5"

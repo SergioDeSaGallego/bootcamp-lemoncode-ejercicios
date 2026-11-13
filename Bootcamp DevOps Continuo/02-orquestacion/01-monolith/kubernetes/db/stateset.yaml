@@ -6,7 +6,6 @@ spec:
   selector:
     matchLabels:
       app: todos-postgres
-  serviceName: todos
   replicas: 1
   template:
     metadata:
