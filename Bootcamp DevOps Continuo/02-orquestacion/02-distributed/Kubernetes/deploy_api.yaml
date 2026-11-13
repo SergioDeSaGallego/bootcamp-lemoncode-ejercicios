@@ -18,6 +18,9 @@ spec:
       - name: todo-api
         image: sdesa/lc-todo-api:latest
         imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: api-config
         resources:
           limits:
             memory: "512Mi"
